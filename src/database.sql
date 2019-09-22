@@ -1,3 +1,10 @@
+-- Acessar o user postgres: sudo -u postgres -i
+-- Digitar psql e então executar os comandos abaixo:
+
+CREATE DATABASE db_project;
+
+\c db_project;
+
 CREATE TABLE ARCHIVE (
     id SERIAL PRIMARY KEY,
     chapter INT,
