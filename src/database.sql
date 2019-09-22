@@ -1,3 +1,4 @@
+-- Baixar o postgres, iniciar ele com o comando sudo service postgresql start
 -- Acessar o user postgres: sudo -u postgres -i
 -- Digitar psql e então executar os comandos abaixo:
 
@@ -5,10 +6,15 @@ CREATE DATABASE db_project;
 
 \c db_project;
 
+REVOKE ALL ON SCHEMA public FROM postgres;
+REVOKE ALL ON SCHEMA public FROM node;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO node;
+
 CREATE TABLE ARCHIVE (
     id SERIAL PRIMARY KEY,
-    chapter INT,
-    date Timestamp With Time Zone DEFAULT now() NOT NULL,
+    chapter_code VARCHAR(30),
+    upload_date Timestamp With Time Zone DEFAULT now() NOT NULL,
     received_data JSON
 );
 
@@ -40,8 +46,8 @@ CREATE TABLE LANDING_PLACE (
 CREATE TABLE NCM (
     id SERIAL PRIMARY KEY,
     archive_id INT NOT NULL REFERENCES ARCHIVE(id),
-    number INT,
-    name VARCHAR(300),
+    ncm_number INT,
+    aname VARCHAR(300),
     code INT,
     code_description VARCHAR(300),
     origin_country_id INT REFERENCES COUNTRY(id),
@@ -64,3 +70,4 @@ CREATE TABLE SOLICITATION (
     commercial_quantity NUMERIC,
     total_product_unit NUMERIC
 );
+

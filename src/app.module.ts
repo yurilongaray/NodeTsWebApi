@@ -9,13 +9,12 @@ import { CsvModule } from './modules/csv/csv.module';
 		CsvModule,
 		TypeOrmModule.forRoot({
 			type: 'postgres',
-			host: 'localhost',
+			host: '127.0.0.1',
 			port: 5432,
-			username: 'node',
-			password: 'node@1234',
-			database: 'dotnet',
-			entities: [__dirname + '/**/*.entity{.ts,.js}'],
-			synchronize: true,
+			username: 'postgres',
+			password: 'postgres',
+			database: 'db_project',
+			entities: [__dirname + '/**/*.entity{.ts,.js}']
 		})],
 	controllers: [AppController],
 	providers: [AppService]

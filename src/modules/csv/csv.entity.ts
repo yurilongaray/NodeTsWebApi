@@ -1,17 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity('archive')
-export class Csv {
+export class Csv extends BaseEntity {
 
 	@PrimaryGeneratedColumn()
 	public id: number;
 
-	@Column({ unique: true })
-	public name: string;
+	@Column({ nullable: true })
+	public chapter_code?: string;
 
 	@Column()
-	public data: Date;
+	public upload_date: Date;
 
-	@Column()
-	public received_data: JSON;
+	@Column('simple-json')
+	public received_data: {};
 }

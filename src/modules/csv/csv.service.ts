@@ -2,13 +2,20 @@ import { Injectable } from '@nestjs/common';
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
 import * as root from 'app-root-path';
+import { CsvRepository } from './csv.repository';
 
 @Injectable()
 export class CsvService {
 
+	constructor(private readonly csvRepository: CsvRepository) { }
+
 	public async importCsv(archiveName?: string) {
 
 		const csvParsed = await this.readFile();
+
+		const x = await this.csvRepository.getAll();
+
+		console.log('x', x);
 	}
 
 	private readFile() {
@@ -55,7 +62,6 @@ export class CsvService {
 
 				reject(error);
 			}
-
 		});
 	}
 }
