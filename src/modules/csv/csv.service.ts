@@ -2,62 +2,60 @@ import { Injectable } from '@nestjs/common';
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
 import * as root from 'app-root-path';
-import { CsvColumnIdentifier } from './csv.interface';
 
 @Injectable()
 export class CsvService {
 
-    public async importCsv(archiveName?: string) {
+	public async importCsv(archiveName?: string) {
 
-        const csvParsed = await this.readFile();
-    }
+		const csvParsed = await this.readFile();
+	}
 
-    private readFile() {
+	private readFile() {
 
-        return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
-            try {
+			try {
 
-                const csvRows = [];
+				const csvRows = [];
 
-                fs.createReadStream(`${root.path}/data/CAP01/CAPI011905.CSV`)
-                    .pipe(csv({
-                        separator: '@',
-                    }))
-                    .on('data', (row) => {
+				fs.createReadStream(`${root.path}/data/CAP01/CAPI011905.CSV`)
+					.pipe(csv({
+						separator: '@',
+					}))
+					.on('data', (row) => {
 
-                        const newRow = {};
+						const newRow = {};
 
-                        for (const key of Object.keys(row)) {
+						for (const key of Object.keys(row)) {
 
-                            // if (key.includes(CsvColumnIdentifier.vmle_dolar)) {
+							// if (key.includes(CsvColumnIdentifier.vmle_dolar)) {
 
-                            //     console.log(row[key]);
+							//     console.log(row[key]);
 
-                            //     newRow[key.replace(/^[ ]+|[ ]+$/g, '')] = row[key];
-                            // }
+							//     newRow[key.replace(/^[ ]+|[ ]+$/g, '')] = row[key];
+							// }
 
-                            newRow[key.replace(/^[ ]+|[ ]+$/g, '')] = row[key]
-                                ? row[key].replace(/^[ ]+|[ ]+$/g, '').replace(/\uFFFD/g, '')
-                                : '';
-                        }
+							newRow[key.replace(/^[ ]+|[ ]+$/g, '')] = row[key]
+								? row[key].replace(/^[ ]+|[ ]+$/g, '').replace(/\uFFFD/g, '')
+								: '';
+						}
 
-                        // console.log(newRow);
-                        csvRows.push(newRow);
+						// console.log(newRow);
+						csvRows.push(newRow);
 
-                    })
-                    .on('end', () => {
+					})
+					.on('end', () => {
 
-                        // tslint:disable-next-line: no-console
-                        console.info('CSV file successfully processed');
+						console.info('CSV file successfully processed');
 
-                        resolve(csvRows);
-                    });
-            } catch (error) {
+						resolve(csvRows);
+					});
+			} catch (error) {
 
-                reject(error);
-            }
+				reject(error);
+			}
 
-        });
-    }
+		});
+	}
 }
