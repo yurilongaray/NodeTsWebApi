@@ -30,7 +30,7 @@ CREATE TABLE MEASUREMENT_UNIT (
 
 CREATE TABLE PRODUCT (
     id SERIAL PRIMARY KEY,
-    description VARCHAR(30),
+    description VARCHAR,
     measurement_unit_id INT REFERENCES MEASUREMENT_UNIT(id),
     commercial_measurement_id INT REFERENCES MEASUREMENT_UNIT(id),
     net_weight NUMERIC,
@@ -39,35 +39,36 @@ CREATE TABLE PRODUCT (
 
 CREATE TABLE LANDING_PLACE (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(300),
-    resourcefulness_unit VARCHAR(300)
-);
-
-CREATE TABLE NCM (
-    id SERIAL PRIMARY KEY,
-    archive_id INT NOT NULL REFERENCES ARCHIVE(id),
-    ncm_number INT,
-    aname VARCHAR(300),
-    code INT,
-    code_description VARCHAR(300),
-    origin_country_id INT REFERENCES COUNTRY(id),
-    aquisition_country_id INT REFERENCES COUNTRY(id),
-    product_id INT REFERENCES PRODUCT(id),
-    statistical_unit NUMERIC,
-    statistical_quantity NUMERIC,
-    landing_place_id INT REFERENCES LANDING_PLACE(id),
-    incoterm VARCHAR(300),
-    nat_information VARCHAR(300),
-    dispatch_situation VARCHAR(300)
+    name VARCHAR,
+    resourcefulness_unit VARCHAR
 );
 
 CREATE TABLE SOLICITATION (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30),
+    product_id INT REFERENCES PRODUCT(id),
     vmle_dolar NUMERIC,
     vl_freight NUMERIC,
     vl_secure NUMERIC,
     commercial_quantity NUMERIC,
     total_product_unit NUMERIC
+);
+
+CREATE TABLE NCM (
+    id SERIAL PRIMARY KEY,
+    archive_id INT NOT NULL REFERENCES ARCHIVE(id),
+    ncm_number BIGINT,
+    aname VARCHAR,
+    code BIGINT,
+    code_description VARCHAR,
+    origin_country_id INT REFERENCES COUNTRY(id),
+    aquisition_country_id INT REFERENCES COUNTRY(id),
+    solicitation_id INT REFERENCES SOLICITATION(id),
+    statistical_unit NUMERIC,
+    statistical_quantity NUMERIC,
+    landing_place_id INT REFERENCES LANDING_PLACE(id),
+    incoterm VARCHAR,
+    nat_information VARCHAR,
+    dispatch_situation VARCHAR
 );
 

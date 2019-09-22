@@ -9,6 +9,9 @@ export class Solicitation extends BaseEntity {
 	@Column({ unique: true })
 	public name: string;
 
+	@Column()
+	public product_id: number;
+
 	@Column('numeric')
 	public vmle_dolar?: number;
 

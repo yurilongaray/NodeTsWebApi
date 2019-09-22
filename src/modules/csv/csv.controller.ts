@@ -7,8 +7,8 @@ export class CsvController {
 	constructor(private readonly csvService: CsvService) {}
 
 	@Get()
-	public getAll() {
+	public async getAll() {
 
-		return this.csvService.importCsv();
+		return this.csvService.importCsv('CAPI011905.CSV');
 	}
 }
