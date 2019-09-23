@@ -4,8 +4,13 @@ import { EntityRepository, getRepository, DeepPartial } from 'typeorm';
 @EntityRepository(Solicitation)
 export class SolicitationRepository {
 
-	public async save(newSolicitation: DeepPartial<Solicitation>) {
+	public async save(saveOptions: DeepPartial<Solicitation>) {
 
-		return getRepository(Solicitation).save(newSolicitation).then(solicitation => solicitation.id);
+		const solicitationFound = await Solicitation.findOne({ order_number: saveOptions.order_number });
+
+		if (!solicitationFound) {
+
+			return getRepository(Solicitation).save(saveOptions).then(solicitation => solicitation.id);
+		}
 	}
 }

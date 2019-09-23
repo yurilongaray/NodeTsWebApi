@@ -1,9 +1,8 @@
 export enum CsvColumnIdentifier {
-	ncm_number = 'NUMERO DE ORDEM',
-	ncm_name = 'ANOMES',
+	order_number = 'NUMERO DE ORDEM',
+	aname = 'ANOMES',
 	ncm_code = 'COD.NCM',
 	code_description = 'DESCRICAO DO CODIGO NCM',
-	country = 'PAIS',
 	origin_country = 'PAIS DE ORIGEM',
 	aquisition_country = 'PAIS DE AQUISICAO',
 	statistical_unit = 'UND.ESTAT',

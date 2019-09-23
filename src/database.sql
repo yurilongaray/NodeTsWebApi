@@ -15,17 +15,35 @@ CREATE TABLE ARCHIVE (
     id SERIAL PRIMARY KEY,
     chapter_code VARCHAR(30),
     upload_date Timestamp With Time Zone DEFAULT now() NOT NULL,
-    received_data JSON
+    received_data JSON,
+    UNIQUE(chapter_code)
 );
 
 CREATE TABLE COUNTRY (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(30)
+    name VARCHAR(30),
+    UNIQUE(name)
 );
 
 CREATE TABLE MEASUREMENT_UNIT (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(30)
+    name VARCHAR(30),
+    UNIQUE(name)
+);
+
+CREATE TABLE LANDING_PLACE (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    resourcefulness_unit VARCHAR,
+    UNIQUE(name)
+);
+
+CREATE TABLE NCM (
+    id SERIAL PRIMARY KEY,
+    code BIGINT,
+    description VARCHAR,
+    statistical_unit NUMERIC,
+    UNIQUE(code)
 );
 
 CREATE TABLE PRODUCT (
@@ -33,42 +51,38 @@ CREATE TABLE PRODUCT (
     description VARCHAR,
     measurement_unit_id INT REFERENCES MEASUREMENT_UNIT(id),
     commercial_measurement_id INT REFERENCES MEASUREMENT_UNIT(id),
+    ncm_id INT REFERENCES NCM(id),
+    statistical_quantity NUMERIC,
     net_weight NUMERIC,
-    unit_value NUMERIC
-);
-
-CREATE TABLE LANDING_PLACE (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR,
-    resourcefulness_unit VARCHAR
+    commercial_quantity NUMERIC,
+    unit_value NUMERIC,
+    UNIQUE(description)
 );
 
 CREATE TABLE SOLICITATION (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(30),
-    product_id INT REFERENCES PRODUCT(id),
+    order_number BIGINT,
+    aname VARCHAR,
     vmle_dolar NUMERIC,
     vl_freight NUMERIC,
     vl_secure NUMERIC,
-    commercial_quantity NUMERIC,
-    total_product_unit NUMERIC
-);
-
-CREATE TABLE NCM (
-    id SERIAL PRIMARY KEY,
-    archive_id INT NOT NULL REFERENCES ARCHIVE(id),
-    ncm_number BIGINT,
-    aname VARCHAR,
-    code BIGINT,
-    code_description VARCHAR,
-    origin_country_id INT REFERENCES COUNTRY(id),
-    aquisition_country_id INT REFERENCES COUNTRY(id),
-    solicitation_id INT REFERENCES SOLICITATION(id),
-    statistical_unit NUMERIC,
-    statistical_quantity NUMERIC,
-    landing_place_id INT REFERENCES LANDING_PLACE(id),
+    total_product_unit NUMERIC,
     incoterm VARCHAR,
     nat_information VARCHAR,
-    dispatch_situation VARCHAR
+    dispatch_situation VARCHAR,
+    competence_date Timestamp With Time Zone,
+    archive_id INT NOT NULL REFERENCES ARCHIVE(id),
+    origin_country_id INT REFERENCES COUNTRY(id),
+    product_id INT REFERENCES PRODUCT(id),
+    aquisition_country_id INT REFERENCES COUNTRY(id),
+    landing_place_id INT REFERENCES LANDING_PLACE(id),
+    UNIQUE(order_number)
 );
 
+-- DELETE FROM SOLICITATION;
+-- DELETE FROM PRODUCT;
+-- DELETE FROM NCM;
+-- DELETE FROM ARCHIVE;
+-- DELETE FROM LANDING_PLACE;
+-- DELETE FROM COUNTRY;
+-- DELETE FROM MEASUREMENT_UNIT;

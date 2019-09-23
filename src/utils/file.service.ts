@@ -2,8 +2,6 @@
 import * as csv from 'csv-parser';
 import * as fs from 'fs';
 import * as root from 'app-root-path';
-import { CsvColumnIdentifier } from 'src/modules/csv/csv.enum';
-import { ICsv } from 'src/modules/csv/csv.interface';
 
 export abstract class FileService {
 
