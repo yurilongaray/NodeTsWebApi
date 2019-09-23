@@ -35,11 +35,11 @@ $ npm run start:prod
 
 ## Apis disponíveis
 
-GET - http://localhost:3000/v1/csv
+GET - v1/csv
 
-GET - http://localhost:3000/v1/country
+GET - v1/country
 
-GET - http://localhost:3000/v1/country/pdf
+GET - v1/country/pdf
 
 ## Test
 
