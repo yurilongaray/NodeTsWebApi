@@ -19,13 +19,12 @@ export class CountryRepository {
 	public getTheHighiestVmleDolar() {
 
 		return Country.query(`
-			SELECT c.name, vmle_dolar
+			SELECT c.name, SUM(s.vmle_dolar)
 			FROM country c
-			JOIN ncm n on n.aquisition_country_id = c.id
-			JOIN solicitation s on n.solicitation_id = s.id
+			JOIN solicitation s ON s.aquisition_country_id = c.id
 			WHERE vmle_dolar IS NOT NULL
-			ORDER BY vmle_dolar DESC
-			LIMIT 10;
+			GROUP BY c.name
+			ORDER BY SUM(s.vmle_dolar) DESC;
 		`);
 	}
 }

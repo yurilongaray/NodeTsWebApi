@@ -73,8 +73,8 @@ CREATE TABLE SOLICITATION (
     competence_date Timestamp With Time Zone,
     archive_id INT NOT NULL REFERENCES ARCHIVE(id),
     origin_country_id INT REFERENCES COUNTRY(id),
-    product_id INT REFERENCES PRODUCT(id),
     aquisition_country_id INT REFERENCES COUNTRY(id),
+    product_id INT REFERENCES PRODUCT(id),
     landing_place_id INT REFERENCES LANDING_PLACE(id),
     UNIQUE(order_number)
 );
