@@ -22,7 +22,6 @@
 			4
 		],
 		"no-console": false,
-		"promise-function-async": true,
 		"no-floating-promises": true,
 		"await-promise": true
   },

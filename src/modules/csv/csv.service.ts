@@ -17,12 +17,12 @@ export class CsvService {
 
 		const csvParsed = await FileService.parse(archiveName) as Array<{}>;
 
-		const archive = await getRepository(Csv).save({ chapter_code: archiveName, received_data: csvParsed });
+		// const savedArchive = await getRepository(Csv).save({ chapter_code: archiveName, received_data: csvParsed });
 
-		for (const row of csvParsed) {
+		// for (const row of csvParsed) {
 
-			await this.saveRowIntoDatabase(row, archive.id);
-		}
+		// 	await this.saveRowIntoDatabase(row, savedArchive.id);
+		// }
 	}
 
 	private async saveRowIntoDatabase(row: {}, archive_id: number) {
@@ -58,19 +58,19 @@ export class CsvService {
 		const commercial_measurement_id = await getCustomRepository(MeasurementUnitRepository).saveMeasurementUnitIfNotExists(row[commercial_measurement]);
 		const measurement_unit_id = await getCustomRepository(MeasurementUnitRepository).saveMeasurementUnitIfNotExists(row[measurement_unit]);
 
-		console.log('PASSOU 1');
+		// console.log('PASSOU 1');
 		const product_id = await getCustomRepository(ProductRepository).saveProductIfNotExists(row[product_description], {
 			measurement_unit_id,
 			commercial_measurement_id,
 			net_weight,
 			product_unit_value
 		});
-		console.log('PASSOU 2');
+		// console.log('PASSOU 2');
 		const landing_place_id = await getCustomRepository(LandingPlaceRepository).saveLandingPlaceIfNotExists(row[landing_unit], {
 			resourcefulness_unit
 		});
 
-		console.log('PASSOU 3');
+		// console.log('PASSOU 3');
 		const solicitation_id = await getCustomRepository(SolicitationRepository).save({
 			product_id,
 			vmle_dolar: row[vmle_dolar] ? parseFloat(row[vmle_dolar].replace(',', '.')) : undefined,
@@ -80,7 +80,7 @@ export class CsvService {
 			total_product_unit: row[total_product_unit] ? parseFloat(row[total_product_unit].replace(',', '.')) : undefined
 		});
 
-		console.log('PASSOU 4');
+		// console.log('PASSOU 4');
 		await getCustomRepository(NcmRepository).save({
 			archive_id,
 			ncm_number: Number(row[ncm_number]),

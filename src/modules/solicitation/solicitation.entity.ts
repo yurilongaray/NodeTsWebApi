@@ -6,9 +6,6 @@ export class Solicitation extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	public id: number;
 
-	@Column({ unique: true })
-	public name: string;
-
 	@Column()
 	public product_id: number;
 

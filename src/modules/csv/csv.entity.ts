@@ -6,7 +6,7 @@ export class Csv extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	public id: number;
 
-	@Column({ nullable: true })
+	@Column({ unique: true })
 	public chapter_code?: string;
 
 	@Column()
