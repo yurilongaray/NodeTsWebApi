@@ -28,6 +28,7 @@
     "csv-parser": "^2.3.0",
     "iconv-lite": "^0.5.0",
     "nodemon": "^1.19.2",
+    "pdfkit": "^0.10.0",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",

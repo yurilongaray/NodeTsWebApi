@@ -15,7 +15,7 @@ export class CsvService {
 
 	public async importCsv(archiveName: string) {
 
-		const csvParsed = await FileService.parse(archiveName) as Array<{}>;
+		const csvParsed = await FileService.csvParse(archiveName) as Array<{}>;
 
 		const savedArchive = await getRepository(Csv).save({ chapter_code: archiveName, received_data: csvParsed });
 
